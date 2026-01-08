@@ -1,68 +1,70 @@
 # Struktur
 ```mermaid
-graph TD
-    %% Tier 1: Device
-    T1[<b>Tier 1: Device</b><br/>Vaillant VR921 Gateway] 
+graph LR
+    %% Zentrales Gateway
+    VR921((<b>Vaillant VR921</b><br/>EEBUS Gateway))
 
-    %% Tier 2: Entities
-    subgraph T2 [Tier 2: Entities]
-        E0[entity=0: NodeMgmt]
-        E31[entity=3,1: Compressor]
-        E4[entity=4: DHW Circuit]
-        E511[entity=5,1,1: HVAC Room]
-        E6[entity=6: Temp Sensor]
-    end
-
-    %% Tier 3: Features & Operations
-    subgraph T3 [Tier 3: Features & Operations]
-        %% Entity 0
-        F0[f=0: NodeManagement]
-        F1[f=1: DeviceClass]
-        
-        %% Compressor
-        F11_C[f=11: Measurement]
+    %% Tier 2 & 3 Cluster: KOMPRESSOR
+    subgraph E31 [Entity 3,1: Compressor]
+        direction TB
+        F11C[f=11: Measurement]
         F19[f=19: SmartEnergy]
+        F7[f=7: Electrical]
         
-        %% Warmwasser
-        F11_W[f=11: Measurement]
-        F18_W[f=18: Setpoint]
-        
-        %% Heizkreis
-        F11_R[f=11: Measurement]
-        F18_R[f=18: Setpoint]
-        
-        %% Außen
-        F11_A[f=11: Measurement]
+        op31{Operations}
+        op31 --- op31_1[READ: Power/Energy]
+        op31 --- op31_2[SUB: Energy Management]
     end
 
-    %% Actions / Commands (Aus deinem Log)
-    subgraph Actions [<b>SPINE Operations</b>]
-        Read_Class[READ: Manufacturer/UserData]
-        Read_Meas[READ: Description/ListData]
-        Read_Set[READ: SetpointDesc/List/Constraints]
-        Sub_Call[CALL: SubscriptionRequest]
-        Notify_Only[SKIP READ: Notify-only Mode]
+    %% Tier 2 & 3 Cluster: WARMWASSER
+    subgraph E4 [Entity 4: DHW Circuit]
+        direction TB
+        F11W[f=11: Measurement]
+        F18W[f=18: Setpoint]
+        
+        op4{Operations}
+        op4 --- op4_1[READ: Ist-Temp]
+        op4 --- op4_2[READ: Setpoint List]
+        op4 --- op4_3[READ: Constraints 35-70°C]
+        op4 --- op4_4[SUB: Active Monitoring]
     end
 
-    %% Mapping Tier 1 to 2
-    T1 --> E0 & E31 & E4 & E511 & E6
+    %% Tier 2 & 3 Cluster: HEIZKREIS
+    subgraph E5 [Entity 5,1,1: HVAC Room]
+        direction TB
+        F11R[f=11: Measurement]
+        F18R[f=18: Setpoint]
+        
+        op5{Operations}
+        op5 --- op5_1[READ: Raum-Temp]
+        op5 --- op5_2[READ: Setpoint List]
+        op5 --- op5_3[READ: Constraints 5-30°C]
+        op5 --- op5_4[SUB: Active Monitoring]
+    end
 
-    %% Mapping Tier 2 to 3
-    E0 --> F0 & F1
-    E31 --> F11_C & F19
-    E4 --> F11_W & F18_W
-    E511 --> F11_R & F18_R
-    E6 --> F11_A
+    %% Tier 2 & 3 Cluster: AUSSENFÜHLER
+    subgraph E6 [Entity 6: Temp Sensor]
+        direction TB
+        F11A[f=11: Measurement]
+        
+        op6{Operations}
+        op6 --- op6_1[SKIP: Read]
+        op6 --- op6_2[MODE: Notify-Only]
+    end
 
-    %% Mapping Actions to Features (Basierend auf Log)
-    Read_Class -.-> F1
-    Read_Meas -.-> F11_C & F11_W & F11_R
-    Read_Set  -.-> F18_W & F18_R
-    Sub_Call  -- "Abo aktiv" --> F18_W & F18_R & F11_C
-    Notify_Only -.-> F11_A
+    %% Physische Verbindungen
+    VR921 ==> E31
+    VR921 ==> E4
+    VR921 ==> E5
+    VR921 ==> E6
 
     %% Styling
-    style T1 fill:#f9f,stroke:#333,stroke-width:2px
-    style Actions fill:#fff4dd,stroke:#d4a017,stroke-dasharray: 5 5
-    style Notify_Only fill:#ffcccc,stroke:#cc0000
-    style Sub_Call fill:#d4edda,stroke:#28a745
+    style VR921 fill:#f9f,stroke:#333,stroke-width:4px
+    style E31 fill:#e1f5fe,stroke:#01579b
+    style E4 fill:#fff3e0,stroke:#e65100
+    style E5 fill:#f1f8e9,stroke:#33691e
+    style E6 fill:#eceff1,stroke:#455a64
+    
+    style op6_2 fill:#ffcdd2,stroke:#b71c1c
+    style op4_4 fill:#c8e6c9,stroke:#2e7d32
+    style op5_4 fill:#c8e6c9,stroke:#2e7d32
