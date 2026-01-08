@@ -1,5 +1,6 @@
 # Struktur
-```mermaidgraph LR
+```mermaid
+graph LR
     %% Zentrales Gateway
     VR921((<b>Vaillant VR921</b><br/>EEBUS Gateway))
 
