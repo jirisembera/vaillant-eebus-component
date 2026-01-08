@@ -1,70 +1,65 @@
 # Struktur
-```mermaid
-graph LR
+```mermaidgraph LR
     %% Zentrales Gateway
     VR921((<b>Vaillant VR921</b><br/>EEBUS Gateway))
 
-    %% Tier 2 & 3 Cluster: KOMPRESSOR
-    subgraph E31 [Entity 3,1: Compressor]
+    %% Entity 3,1: Compressor
+    subgraph E31 [<b>Entity 3,1: Kompressor</b>]
         direction TB
-        F11C[f=11: Measurement]
-        F19[f=19: SmartEnergy]
-        F7[f=7: Electrical]
+        F11C[Feature 11: Messwerte]
+        F19[Feature 19: SmartEnergy]
         
-        op31{Operations}
-        op31 --- op31_1[READ: Power/Energy]
-        op31 --- op31_2[SUB: Energy Management]
+        op31_1[<b>READ:</b> Leistung & Energie]
+        op31_2[<b>SUB:</b> Lastmanagement]
     end
 
-    %% Tier 2 & 3 Cluster: WARMWASSER
-    subgraph E4 [Entity 4: DHW Circuit]
+    %% Entity 4: Warmwasser
+    subgraph E4 [<b>Entity 4: Warmwasser</b>]
         direction TB
-        F11W[f=11: Measurement]
-        F18W[f=18: Setpoint]
+        F11W[Feature 11: Messwerte]
+        F18W[Feature 18: Setpoints]
         
-        op4{Operations}
-        op4 --- op4_1[READ: Ist-Temp]
-        op4 --- op4_2[READ: Setpoint List]
-        op4 --- op4_3[READ: Constraints 35-70°C]
-        op4 --- op4_4[SUB: Active Monitoring]
+        op4_1[<b>READ:</b> Ist-Temperatur]
+        op4_2[<b>READ:</b> Limits 35-70°C]
+        op4_3[<b>SUB:</b> Status-Updates]
     end
 
-    %% Tier 2 & 3 Cluster: HEIZKREIS
-    subgraph E5 [Entity 5,1,1: HVAC Room]
+    %% Entity 5,1,1: Heizkreis
+    subgraph E5 [<b>Entity 5,1,1: Heizkreis</b>]
         direction TB
-        F11R[f=11: Measurement]
-        F18R[f=18: Setpoint]
+        F11R[Feature 11: Messwerte]
+        F18R[Feature 18: Setpoints]
         
-        op5{Operations}
-        op5 --- op5_1[READ: Raum-Temp]
-        op5 --- op5_2[READ: Setpoint List]
-        op5 --- op5_3[READ: Constraints 5-30°C]
-        op5 --- op5_4[SUB: Active Monitoring]
+        op5_1[<b>READ:</b> Raum-Temperatur]
+        op5_2[<b>READ:</b> Limits 5-30°C]
+        op5_3[<b>SUB:</b> Status-Updates]
     end
 
-    %% Tier 2 & 3 Cluster: AUSSENFÜHLER
-    subgraph E6 [Entity 6: Temp Sensor]
+    %% Entity 6: Außensensor
+    subgraph E6 [<b>Entity 6: Außenfühler</b>]
         direction TB
-        F11A[f=11: Measurement]
+        F11A[Feature 11: Messwerte]
         
-        op6{Operations}
-        op6 --- op6_1[SKIP: Read]
-        op6 --- op6_2[MODE: Notify-Only]
+        op6_1[<b>SKIP:</b> Aktives Lesen]
+        op6_2[<b>MODE:</b> Nur Notify]
     end
 
-    %% Physische Verbindungen
-    VR921 ==> E31
-    VR921 ==> E4
-    VR921 ==> E5
-    VR921 ==> E6
+    %% Verbindungen
+    VR921 === E31
+    VR921 === E4
+    VR921 === E5
+    VR921 === E6
 
-    %% Styling
-    style VR921 fill:#f9f,stroke:#333,stroke-width:4px
-    style E31 fill:#e1f5fe,stroke:#01579b
-    style E4 fill:#fff3e0,stroke:#e65100
-    style E5 fill:#f1f8e9,stroke:#33691e
-    style E6 fill:#eceff1,stroke:#455a64
+    %% Kontrastreiches Styling (Schwarze Schrift auf hellen, kräftigen Hintergründen)
+    style VR921 fill:#FF00FF,stroke:#000,stroke-width:3px,color:#000
     
-    style op6_2 fill:#ffcdd2,stroke:#b71c1c
-    style op4_4 fill:#c8e6c9,stroke:#2e7d32
-    style op5_4 fill:#c8e6c9,stroke:#2e7d32
+    style E31 fill:#00BFFF,stroke:#000,stroke-width:2px,color:#000
+    style E4 fill:#FFA500,stroke:#000,stroke-width:2px,color:#000
+    style E5 fill:#32CD32,stroke:#000,stroke-width:2px,color:#000
+    style E6 fill:#A9A9A9,stroke:#000,stroke-width:2px,color:#000
+
+    %% Knoten innerhalb der Subgraphs
+    style op6_2 fill:#FF4500,color:#000,stroke:#000
+    style op4_3 fill:#006400,color:#FFF,stroke:#000
+    style op5_3 fill:#006400,color:#FFF,stroke:#000
+
