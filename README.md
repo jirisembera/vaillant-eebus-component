@@ -61,6 +61,66 @@ pip install -r requirements.txt
 - Wenn du MQTT nutzen willst: `paho-mqtt` ist bereits in [requirements.txt](requirements.txt) enthalten.
 - Broker-Zugangsdaten liegen in [mqtt_secrets.py](mqtt_secrets.py) (standardmäßig in `.gitignore`).
 
+### Betrieb auf Raspberry Pi / Server (als Daemon)
+Du kannst das Skript dauerhaft auf einem Raspberry Pi (Raspberry Pi OS) oder einem Linux-Server im Netzwerk laufen lassen – typisch über **systemd**.
+
+1) Projekt z.B. nach `/opt/Vaillant-VR921` kopieren und dort die venv anlegen:
+```bash
+sudo mkdir -p /opt/Vaillant-VR921
+sudo chown -R $USER: /opt/Vaillant-VR921
+
+cd /opt/Vaillant-VR921
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+2) Optional: Umgebungsvariablen in eine Environment-Datei legen (empfohlen):
+`/etc/default/vaillant-vr921`
+```bash
+# MQTT (optional)
+HA_MQTT_HOST=192.168.1.10
+HA_MQTT_PORT=1883
+HA_MQTT_USER=
+HA_MQTT_PASSWORD=
+
+# Logging (optional)
+SHIP_JSONL=true
+SHIP_DISCOVERY_LOG=false
+```
+
+3) systemd Service anlegen: `/etc/systemd/system/vaillant-vr921.service`
+```ini
+[Unit]
+Description=Vaillant VR921 SHIP/SPINE client
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/opt/Vaillant-VR921
+EnvironmentFile=-/etc/default/vaillant-vr921
+ExecStart=/opt/Vaillant-VR921/.venv/bin/python /opt/Vaillant-VR921/connect_vr921.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+4) Service aktivieren und starten:
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now vaillant-vr921.service
+sudo systemctl status vaillant-vr921.service
+```
+
+Logs ansehen:
+```bash
+journalctl -u vaillant-vr921.service -f
+```
+
 ## English
 
 ### Prerequisites
@@ -77,6 +137,66 @@ pip install -r requirements.txt
 ### Optional: MQTT / Home Assistant
 - If you want MQTT: `paho-mqtt` is included in [requirements.txt](requirements.txt).
 - Broker credentials are stored in [mqtt_secrets.py](mqtt_secrets.py) (ignored by default via `.gitignore`).
+
+### Running on a Raspberry Pi / server (as a daemon)
+You can run the script continuously on a Raspberry Pi (Raspberry Pi OS) or a Linux server in your LAN – typically via **systemd**.
+
+1) Copy the project e.g. to `/opt/Vaillant-VR921` and create a venv there:
+```bash
+sudo mkdir -p /opt/Vaillant-VR921
+sudo chown -R $USER: /opt/Vaillant-VR921
+
+cd /opt/Vaillant-VR921
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+2) Optional: put environment variables into an env file (recommended):
+`/etc/default/vaillant-vr921`
+```bash
+# MQTT (optional)
+HA_MQTT_HOST=192.168.1.10
+HA_MQTT_PORT=1883
+HA_MQTT_USER=
+HA_MQTT_PASSWORD=
+
+# Logging (optional)
+SHIP_JSONL=true
+SHIP_DISCOVERY_LOG=false
+```
+
+3) Create a systemd unit: `/etc/systemd/system/vaillant-vr921.service`
+```ini
+[Unit]
+Description=Vaillant VR921 SHIP/SPINE client
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/opt/Vaillant-VR921
+EnvironmentFile=-/etc/default/vaillant-vr921
+ExecStart=/opt/Vaillant-VR921/.venv/bin/python /opt/Vaillant-VR921/connect_vr921.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+4) Enable + start the service:
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now vaillant-vr921.service
+sudo systemctl status vaillant-vr921.service
+```
+
+View logs:
+```bash
+journalctl -u vaillant-vr921.service -f
+```
 
 ---
 
