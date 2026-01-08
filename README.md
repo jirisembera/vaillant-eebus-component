@@ -156,7 +156,7 @@ pip install -r requirements.txt
 `/etc/default/vaillant-vr921`
 ```bash
 # MQTT (optional)
-HA_MQTT_HOST=192.168.1.10
+HA_MQTT_HOST=
 HA_MQTT_PORT=1883
 HA_MQTT_USER=
 HA_MQTT_PASSWORD=
