@@ -42,6 +42,6 @@ graph TD
     E6 --> F11_A
 
     %% Styling
-    style Device fill:#f9f,stroke:#333,stroke-width:2px
+    style Device fill:#e9f,stroke:#333,stroke-width:2px
     style Entities fill:#fff,stroke:#333,stroke-dasharray: 5 5
     style Features fill:#dfd,stroke:#333,stroke-width:1px
