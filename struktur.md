@@ -1,4 +1,4 @@
-mermaid
+```mermaid
 
 graph TD
     %% Tier 1
