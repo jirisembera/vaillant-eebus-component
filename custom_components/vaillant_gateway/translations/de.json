@@ -1,0 +1,28 @@
+{
+  "title": "Vaillant Gateway",
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "confirm": {
+        "title": "{name} einrichten",
+        "description": "**{name}** gefunden. Fahren Sie mit der Kopplung fort — auf der nächsten Seite werden Sie aufgefordert, in der myVAILLANT-App auf **Vertrauen** zu tippen."
+      },
+      "pair": {
+        "title": "Tippen Sie in der myVAILLANT-App auf Vertrauen",
+        "description": "Öffnen Sie die myVAILLANT-App auf Ihrem Telefon, suchen Sie das neue SHIP-Gerät **{client_name}** (vollständige SKI: `{client_ski}`) und tippen Sie auf **Vertrauen**. Diese Seite wird automatisch fortgesetzt, sobald das Gateway die Kopplung akzeptiert."
+      }
+    },
+    "progress": {
+      "pairing": "Warten darauf, dass Sie in der myVAILLANT-App bei **{client_name}** auf Vertrauen tippen…"
+    },
+    "error": {
+      "handshake_failed": "Der Kopplungs-Handshake ist fehlgeschlagen (Vertrauen wurde verweigert oder das Zeitlimit wurde überschritten). Versuchen Sie es erneut.",
+      "gateway_not_found": "Kein Vaillant-Gateway hat innerhalb des Zeitlimits auf mDNS geantwortet. Stellen Sie sicher, dass sich das Gerät im selben Netzwerk befindet.",
+      "unknown": "Unerwarteter Fehler bei der Kopplung — prüfen Sie das Home-Assistant-Protokoll."
+    },
+    "abort": {
+      "already_configured": "Dieses Gateway ist bereits konfiguriert.",
+      "not_supported": "Der gefundene Dienst ist kein Vaillant-Gateway."
+    }
+  }
+}

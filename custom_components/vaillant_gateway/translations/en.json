@@ -1,0 +1,28 @@
+{
+  "title": "Vaillant Gateway",
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "confirm": {
+        "title": "Set up {name}",
+        "description": "Found **{name}**. Continue to pair — you will be asked to press **Trust** in the myVAILLANT app on the next page."
+      },
+      "pair": {
+        "title": "Press Trust in the myVAILLANT app",
+        "description": "Open the myVAILLANT app on your phone, find the new SHIP device **{client_name}** (full SKI: `{client_ski}`) and press **Trust**. This page will advance automatically once the gateway accepts pairing."
+      }
+    },
+    "progress": {
+      "pairing": "Waiting for you to press Trust on **{client_name}** in the myVAILLANT app…"
+    },
+    "error": {
+      "handshake_failed": "The pairing handshake failed (trust was denied or timed out). Try again.",
+      "gateway_not_found": "No Vaillant gateway answered mDNS within the timeout. Check that the device is on the same network.",
+      "unknown": "Unexpected error during pairing — check the Home Assistant log."
+    },
+    "abort": {
+      "already_configured": "This gateway is already configured.",
+      "not_supported": "The discovered service is not a Vaillant gateway."
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "domain": "vaillant_gateway",
+  "name": "Vaillant Gateway",
+  "version": "0.1.0",
+  "documentation": "https://github.com/jirisembera/vaillant-eebus-component",
+  "issue_tracker": "https://github.com/jirisembera/vaillant-eebus-component/issues",
+  "codeowners": ["@jirisembera"],
+  "config_flow": true,
+  "dependencies": ["zeroconf"],
+  "iot_class": "local_push",
+  "integration_type": "device",
+  "requirements": ["cryptography>=42", "zeroconf>=0.131", "websockets>=12"],
+  "zeroconf": ["_ship._tcp.local."],
+  "loggers": ["custom_components.vaillant_gateway"]
+}

@@ -1,0 +1,28 @@
+{
+  "title": "Vaillant Gateway",
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "confirm": {
+        "title": "Configurer {name}",
+        "description": "**{name}** détecté. Continuez pour appairer — il vous sera demandé d'appuyer sur **Faire confiance** dans l'application myVAILLANT à la page suivante."
+      },
+      "pair": {
+        "title": "Appuyez sur Faire confiance dans l'application myVAILLANT",
+        "description": "Ouvrez l'application myVAILLANT sur votre téléphone, repérez le nouvel appareil SHIP **{client_name}** (SKI complet : `{client_ski}`) et appuyez sur **Faire confiance**. Cette page progressera automatiquement dès que la passerelle acceptera l'appairage."
+      }
+    },
+    "progress": {
+      "pairing": "En attente que vous appuyiez sur Faire confiance pour **{client_name}** dans l'application myVAILLANT…"
+    },
+    "error": {
+      "handshake_failed": "L'appairage a échoué (confiance refusée ou délai dépassé). Réessayez.",
+      "gateway_not_found": "Aucune passerelle Vaillant n'a répondu au mDNS dans le délai imparti. Vérifiez que l'appareil se trouve sur le même réseau.",
+      "unknown": "Erreur inattendue lors de l'appairage — consultez le journal de Home Assistant."
+    },
+    "abort": {
+      "already_configured": "Cette passerelle est déjà configurée.",
+      "not_supported": "Le service détecté n'est pas une passerelle Vaillant."
+    }
+  }
+}

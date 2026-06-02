@@ -1,0 +1,7 @@
+{
+  "name": "Vaillant Gateway",
+  "render_readme": true,
+  "homeassistant": "2024.12.0",
+  "country": ["CZ", "DE", "AT", "CH", "NL", "GB"],
+  "zip_release": false
+}

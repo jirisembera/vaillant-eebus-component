@@ -1,7 +1,7 @@
 # Local secrets
 mqtt_secrets.py
 
-# Generated client identity (created by connect_vr921.py)
+# Generated client identity (created by tools/pair.py)
 cert.pem
 key.pem
 
@@ -9,5 +9,19 @@ key.pem
 __pycache__/
 *.pyc
 
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
 # macOS
 .DS_Store
+
+# Python environment
+.venv
+
+# Pycharm configs
+.idea
+
+# Local scratch / working notes
+.scratchpad/

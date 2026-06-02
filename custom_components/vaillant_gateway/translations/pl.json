@@ -1,0 +1,28 @@
+{
+  "title": "Vaillant Gateway",
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "confirm": {
+        "title": "Skonfiguruj {name}",
+        "description": "Znaleziono **{name}**. Kontynuuj parowanie — na następnej stronie zostaniesz poproszony o naciśnięcie przycisku **Zaufaj** w aplikacji myVAILLANT."
+      },
+      "pair": {
+        "title": "Naciśnij Zaufaj w aplikacji myVAILLANT",
+        "description": "Otwórz aplikację myVAILLANT w telefonie, znajdź nowe urządzenie SHIP **{client_name}** (pełny SKI: `{client_ski}`) i naciśnij **Zaufaj**. Ta strona przejdzie dalej automatycznie, gdy brama zaakceptuje parowanie."
+      }
+    },
+    "progress": {
+      "pairing": "Oczekiwanie na naciśnięcie przycisku Zaufaj dla **{client_name}** w aplikacji myVAILLANT…"
+    },
+    "error": {
+      "handshake_failed": "Parowanie nie powiodło się (odmowa zaufania lub przekroczenie limitu czasu). Spróbuj ponownie.",
+      "gateway_not_found": "Żadna brama Vaillant nie odpowiedziała na mDNS w wyznaczonym czasie. Sprawdź, czy urządzenie znajduje się w tej samej sieci.",
+      "unknown": "Nieoczekiwany błąd podczas parowania — sprawdź dziennik Home Assistant."
+    },
+    "abort": {
+      "already_configured": "Ta brama jest już skonfigurowana.",
+      "not_supported": "Wykryta usługa nie jest bramą Vaillant."
+    }
+  }
+}

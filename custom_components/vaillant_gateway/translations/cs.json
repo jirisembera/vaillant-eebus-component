@@ -1,0 +1,28 @@
+{
+  "title": "Vaillant Gateway",
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "confirm": {
+        "title": "Nastavit {name}",
+        "description": "Nalezeno zařízení **{name}**. Pokračujte ke spárování — na další stránce budete vyzváni ke stisknutí tlačítka **Důvěřovat** v aplikaci myVAILLANT."
+      },
+      "pair": {
+        "title": "Stiskněte Důvěřovat v aplikaci myVAILLANT",
+        "description": "Otevřete aplikaci myVAILLANT v telefonu, najděte nové zařízení SHIP **{client_name}** (úplné SKI: `{client_ski}`) a stiskněte **Důvěřovat**. Tato stránka bude pokračovat automaticky, jakmile brána spárování přijme."
+      }
+    },
+    "progress": {
+      "pairing": "Čeká se na stisknutí tlačítka Důvěřovat u zařízení **{client_name}** v aplikaci myVAILLANT…"
+    },
+    "error": {
+      "handshake_failed": "Párování se nezdařilo (důvěra byla odmítnuta nebo vypršel časový limit). Zkuste to znovu.",
+      "gateway_not_found": "Žádná brána Vaillant neodpověděla na mDNS v časovém limitu. Zkontrolujte, že je zařízení ve stejné síti.",
+      "unknown": "Neočekávaná chyba při párování — zkontrolujte protokol Home Assistant."
+    },
+    "abort": {
+      "already_configured": "Tato brána je již nakonfigurována.",
+      "not_supported": "Nalezená služba není brána Vaillant."
+    }
+  }
+}

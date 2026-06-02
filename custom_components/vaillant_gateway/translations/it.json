@@ -1,0 +1,28 @@
+{
+  "title": "Vaillant Gateway",
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "confirm": {
+        "title": "Configura {name}",
+        "description": "Trovato **{name}**. Continua per associare — nella pagina successiva ti verrà chiesto di premere **Autorizza** nell'app myVAILLANT."
+      },
+      "pair": {
+        "title": "Premi Autorizza nell'app myVAILLANT",
+        "description": "Apri l'app myVAILLANT sul telefono, individua il nuovo dispositivo SHIP **{client_name}** (SKI completo: `{client_ski}`) e premi **Autorizza**. Questa pagina avanzerà automaticamente non appena il gateway accetterà l'associazione."
+      }
+    },
+    "progress": {
+      "pairing": "In attesa che tu prema Autorizza su **{client_name}** nell'app myVAILLANT…"
+    },
+    "error": {
+      "handshake_failed": "L'associazione non è riuscita (autorizzazione negata o tempo scaduto). Riprova.",
+      "gateway_not_found": "Nessun gateway Vaillant ha risposto a mDNS entro il tempo limite. Verifica che il dispositivo sia sulla stessa rete.",
+      "unknown": "Errore imprevisto durante l'associazione — controlla il registro di Home Assistant."
+    },
+    "abort": {
+      "already_configured": "Questo gateway è già configurato.",
+      "not_supported": "Il servizio rilevato non è un gateway Vaillant."
+    }
+  }
+}

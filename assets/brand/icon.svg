@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Original stylized hare-in-oval emblem. Echoes the Vaillant hare-in-oval
+       composition but is an independent drawing (not the trademarked mark). -->
+
+  <!-- teal oval ring -->
+  <ellipse cx="256" cy="282" rx="150" ry="182"
+           fill="none" stroke="#00897B" stroke-width="28"/>
+
+  <!-- ears (dark), splayed; tips break through the ring top -->
+  <g fill="#242C30">
+    <g transform="translate(214,250) rotate(-13)">
+      <path d="M0,-170 C26,-110 26,40 0,40 C-26,40 -26,-110 0,-170 Z"/>
+    </g>
+    <g transform="translate(298,250) rotate(13)">
+      <path d="M0,-170 C26,-110 26,40 0,40 C-26,40 -26,-110 0,-170 Z"/>
+    </g>
+  </g>
+  <!-- inner ears (teal) -->
+  <g fill="#00897B">
+    <g transform="translate(214,250) rotate(-13)">
+      <path d="M0,-128 C13,-92 13,8 0,16 C-13,8 -13,-92 0,-128 Z"/>
+    </g>
+    <g transform="translate(298,250) rotate(13)">
+      <path d="M0,-128 C13,-92 13,8 0,16 C-13,8 -13,-92 0,-128 Z"/>
+    </g>
+  </g>
+
+  <!-- head -->
+  <ellipse cx="256" cy="312" rx="104" ry="98" fill="#242C30"/>
+
+  <!-- eyes -->
+  <g fill="#FFFFFF">
+    <ellipse cx="220" cy="300" rx="17" ry="21"/>
+    <ellipse cx="292" cy="300" rx="17" ry="21"/>
+  </g>
+  <g fill="#242C30">
+    <circle cx="220" cy="302" r="8.5"/>
+    <circle cx="292" cy="302" r="8.5"/>
+  </g>
+  <g fill="#FFFFFF">
+    <circle cx="223.5" cy="298" r="2.6"/>
+    <circle cx="295.5" cy="298" r="2.6"/>
+  </g>
+
+  <!-- nose -->
+  <path d="M256,340 l15,11 q-15,15 -30,0 Z" fill="#00897B"/>
+
+  <!-- whiskers -->
+  <g stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M249,361 C211,360 197,356 179,349"/>
+    <path d="M249,368 C215,372 199,374 183,378"/>
+    <path d="M263,361 C301,360 315,356 333,349"/>
+    <path d="M263,368 C297,372 313,374 329,378"/>
+  </g>
+</svg>

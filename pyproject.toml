@@ -1,0 +1,91 @@
+# This repo is a HACS-shipped Home Assistant component, not a pip-installable
+# package — so there is intentionally no [project]/[build-system] table. This
+# file carries the tool config plus PEP 735 dependency groups, installable with
+# `pip install --group <name>` (pip >= 25.1) or `uv`.
+#
+# Runtime deps for the HA integration itself live in
+# custom_components/vaillant_gateway/manifest.json — Home Assistant installs
+# from there, so they are deliberately not duplicated below.
+
+[dependency-groups]
+# Standalone CLI tools (pair / monitor / info / write / discover) + the comm
+# library they import. Mirrors what HA installs from manifest.json.
+cli = [
+    "cryptography>=41.0.0",
+    "zeroconf>=0.120.0",
+    "websockets>=12.0",
+]
+# The long-running MQTT bridge (eebus_to_mqtt) needs paho on top of the CLI deps.
+mqtt = [
+    { include-group = "cli" },
+    "paho-mqtt>=2.0.0",
+]
+# Linters + tests. Pulls in the full runtime so the suite can import the library
+# (and the bridge) without a separate install.
+dev = [
+    { include-group = "mqtt" },
+    "pytest>=8",
+    "ruff>=0.6",
+    "mypy>=1.11",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = [
+    ".venv",
+    # Committed symlink → custom_components/vaillant_gateway/vaillant_eebus.
+    # Lint/format the real path only; skip the symlinked duplicate.
+    "tools/vaillant_eebus",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "SIM", # flake8-simplify
+    "C4",  # flake8-comprehensions
+]
+ignore = [
+    # The formatter owns line length; don't double-report long lines it can't
+    # break (URLs, long string literals).
+    "E501",
+    # The library/bridge deliberately use explicit `try/except ...: pass`
+    # defensive idioms (best-effort logging, optional cleanup). Keep them
+    # explicit rather than rewriting to contextlib.suppress.
+    "SIM105",
+    # `if/else` blocks are sometimes clearer than a long ternary; leave to
+    # author's discretion.
+    "SIM108",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Defensive parsing deliberately catches broad Exception; tests may use asserts
+# and longer fixture literals.
+"tests/*" = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+# Lenient baseline: the comm library is intentionally Any-heavy / defensive
+# (SPINE peers send array-wrapped, sometimes omitted fields). The goal is a
+# non-noisy starting point we can tighten later, not strict typing now.
+ignore_missing_imports = true
+disallow_untyped_defs = false
+check_untyped_defs = false
+warn_return_any = false
+warn_unused_ignores = false
+no_implicit_optional = false
+explicit_package_bases = true
+# Defensive parsers reuse a local name across mutually-exclusive isinstance
+# branches (e.g. naming.unit_to_ha); treat each assignment as its own binding.
+allow_redefinition = true
+
+[tool.pytest.ini_options]
+# Import the library as a top-level `vaillant_eebus` package via the committed
+# tools/ symlink — same path the CLI tools use, and avoids pulling in Home
+# Assistant through custom_components/vaillant_gateway/__init__.py.
+pythonpath = ["tools"]
+testpaths = ["tests"]
+addopts = "-q"

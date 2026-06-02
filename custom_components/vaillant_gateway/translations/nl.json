@@ -1,0 +1,28 @@
+{
+  "title": "Vaillant Gateway",
+  "config": {
+    "flow_title": "{name}",
+    "step": {
+      "confirm": {
+        "title": "{name} instellen",
+        "description": "**{name}** gevonden. Ga door om te koppelen — op de volgende pagina wordt u gevraagd om in de myVAILLANT-app op **Vertrouwen** te drukken."
+      },
+      "pair": {
+        "title": "Druk op Vertrouwen in de myVAILLANT-app",
+        "description": "Open de myVAILLANT-app op uw telefoon, zoek het nieuwe SHIP-apparaat **{client_name}** (volledige SKI: `{client_ski}`) en druk op **Vertrouwen**. Deze pagina gaat automatisch verder zodra de gateway de koppeling accepteert."
+      }
+    },
+    "progress": {
+      "pairing": "Wachten tot u op Vertrouwen drukt voor **{client_name}** in de myVAILLANT-app…"
+    },
+    "error": {
+      "handshake_failed": "De koppeling is mislukt (vertrouwen geweigerd of time-out). Probeer het opnieuw.",
+      "gateway_not_found": "Geen Vaillant-gateway reageerde binnen de time-out op mDNS. Controleer of het apparaat zich in hetzelfde netwerk bevindt.",
+      "unknown": "Onverwachte fout tijdens het koppelen — controleer het Home Assistant-logboek."
+    },
+    "abort": {
+      "already_configured": "Deze gateway is al geconfigureerd.",
+      "not_supported": "De gevonden service is geen Vaillant-gateway."
+    }
+  }
+}

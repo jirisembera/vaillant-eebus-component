@@ -1,7 +1,0 @@
-# Core runtime dependencies for connect_vr921.py
-cryptography>=41.0.0
-zeroconf>=0.120.0
-websockets>=12.0
-
-# Optional: only needed if you set HA_MQTT_HOST / use HAMqttPublisher
-paho-mqtt>=2.0.0
